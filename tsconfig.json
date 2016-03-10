@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"charset": "utf-8",
+		"diagnostics": true,
+		"declaration": true,
+		"inlineSourceMap": false,
+		"locale": "pt-br",
+		"module": "umd",
+		"noImplicitAny": false,
+		"outDir": "es6",
+		"rootDir": "ts",
+		"target": "es2015",
+		"watch": true
+	},
+    "exclude": [
+        "_dts",
+        "coverage",
+        "es6",
+        "hooks",
+        "node_modules",
+        "platforms",
+        "plugins",
+        "scss",
+        "server",
+        "typings",
+        "www/lib",
+        "www"
+    ]
+}

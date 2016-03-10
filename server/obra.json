@@ -1,0 +1,876 @@
+[
+	{
+		"Id": 23,
+		"Nome": "Ala leste",
+		"EmpresaId": 1,
+		"ObraId": 1,
+		"DataAtualizacao": "2015-09-25T02:15:21.843",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 24,
+		"Nome": "Bloco 1",
+		"EmpresaId": 1,
+		"ObraId": 23,
+		"DataAtualizacao": "2015-09-25T02:15:22.03",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 28,
+		"Nome": "Bloco 1",
+		"EmpresaId": 1,
+		"ObraId": 2,
+		"DataAtualizacao": "2015-09-25T02:15:22.64",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 32,
+		"Nome": "Bloco 1",
+		"EmpresaId": 1,
+		"ObraId": 3,
+		"DataAtualizacao": "2015-09-25T02:15:23.297",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 41,
+		"Nome": "Bloco 1",
+		"EmpresaId": 1,
+		"ObraId": 6,
+		"DataAtualizacao": "2015-09-25T02:15:24.61",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 7,
+		"Nome": "Bloco 1 Trecho A Lado 1",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:17.127",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 8,
+		"Nome": "Bloco 1 Trecho A Lado 2",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:18.093",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 9,
+		"Nome": "Bloco 1 Trecho A Lado 3",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:18.28",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 10,
+		"Nome": "Bloco 1 Trecho A Lado 4",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:18.467",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 11,
+		"Nome": "Bloco 1 Trecho B Lado 1",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:18.86",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 12,
+		"Nome": "Bloco 1 Trecho B Lado 2",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:19.03",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 13,
+		"Nome": "Bloco 1 Trecho B Lado 3",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:19.187",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 14,
+		"Nome": "Bloco 1 Trecho B Lado 4",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:19.343",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 25,
+		"Nome": "Bloco 2",
+		"EmpresaId": 1,
+		"ObraId": 23,
+		"DataAtualizacao": "2015-09-25T02:15:22.203",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 29,
+		"Nome": "Bloco 2",
+		"EmpresaId": 1,
+		"ObraId": 2,
+		"DataAtualizacao": "2015-09-25T02:15:22.797",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 33,
+		"Nome": "Bloco 2",
+		"EmpresaId": 1,
+		"ObraId": 3,
+		"DataAtualizacao": "2015-09-25T02:15:23.437",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 42,
+		"Nome": "Bloco 2",
+		"EmpresaId": 1,
+		"ObraId": 6,
+		"DataAtualizacao": "2015-09-25T02:15:24.75",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 15,
+		"Nome": "Bloco 2 Trecho A Lado 1",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:19.5",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 16,
+		"Nome": "Bloco 2 Trecho A Lado 2",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:19.953",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 17,
+		"Nome": "Bloco 2 Trecho A Lado 3",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:20.297",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 18,
+		"Nome": "Bloco 2 Trecho A Lado 4",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:20.953",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 19,
+		"Nome": "Bloco 2 Trecho B Lado 1",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:21.28",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 20,
+		"Nome": "Bloco 2 Trecho B Lado 2",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:21.42",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 21,
+		"Nome": "Bloco 2 Trecho B Lado 3",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:21.563",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 22,
+		"Nome": "Bloco 2 Trecho B Lado 4",
+		"EmpresaId": 1,
+		"ObraId": 5,
+		"DataAtualizacao": "2015-09-25T02:15:21.703",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 26,
+		"Nome": "Bloco 3",
+		"EmpresaId": 1,
+		"ObraId": 23,
+		"DataAtualizacao": "2015-09-25T02:15:22.343",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 30,
+		"Nome": "Bloco 3",
+		"EmpresaId": 1,
+		"ObraId": 2,
+		"DataAtualizacao": "2015-09-25T02:15:22.937",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 34,
+		"Nome": "Bloco 3",
+		"EmpresaId": 1,
+		"ObraId": 3,
+		"DataAtualizacao": "2015-09-25T02:15:23.593",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 43,
+		"Nome": "Bloco 3",
+		"EmpresaId": 1,
+		"ObraId": 6,
+		"DataAtualizacao": "2015-09-25T02:15:24.89",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 27,
+		"Nome": "Bloco 4",
+		"EmpresaId": 1,
+		"ObraId": 23,
+		"DataAtualizacao": "2015-09-25T02:15:22.483",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 31,
+		"Nome": "Bloco 4",
+		"EmpresaId": 1,
+		"ObraId": 2,
+		"DataAtualizacao": "2015-09-25T02:15:23.123",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 35,
+		"Nome": "Bloco 4",
+		"EmpresaId": 1,
+		"ObraId": 3,
+		"DataAtualizacao": "2015-09-25T02:15:23.75",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 44,
+		"Nome": "Bloco 4",
+		"EmpresaId": 1,
+		"ObraId": 6,
+		"DataAtualizacao": "2015-09-25T02:15:25.03",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 45,
+		"Nome": "Bloco 5",
+		"EmpresaId": 1,
+		"ObraId": 6,
+		"DataAtualizacao": "2015-09-25T02:15:25.187",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 46,
+		"Nome": "Bloco 6",
+		"EmpresaId": 1,
+		"ObraId": 6,
+		"DataAtualizacao": "2015-09-25T02:15:25.36",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 5,
+		"Nome": "EORJ",
+		"EmpresaId": 1,
+		"ObraId": null,
+		"DataAtualizacao": "2015-09-25T02:15:16.733",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 3,
+		"Nome": "Essence",
+		"EmpresaId": 1,
+		"ObraId": null,
+		"DataAtualizacao": "2015-09-25T02:15:16.017",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 4,
+		"Nome": "Ilha Pura",
+		"EmpresaId": 1,
+		"ObraId": null,
+		"DataAtualizacao": "2015-09-25T02:15:16.563",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 6,
+		"Nome": "Obra de homologacao",
+		"EmpresaId": 1,
+		"ObraId": null,
+		"DataAtualizacao": "2015-09-25T02:15:16.953",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 1,
+		"Nome": "Porto Atlantico",
+		"EmpresaId": 1,
+		"ObraId": null,
+		"DataAtualizacao": "2015-09-25T02:15:15.14",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 36,
+		"Nome": "Torre 1",
+		"EmpresaId": 1,
+		"ObraId": 4,
+		"DataAtualizacao": "2015-09-25T02:15:23.89",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 37,
+		"Nome": "Torre 2",
+		"EmpresaId": 1,
+		"ObraId": 4,
+		"DataAtualizacao": "2015-09-25T02:15:24.03",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 38,
+		"Nome": "Torre 3",
+		"EmpresaId": 1,
+		"ObraId": 4,
+		"DataAtualizacao": "2015-09-25T02:15:24.187",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 39,
+		"Nome": "Torre 4",
+		"EmpresaId": 1,
+		"ObraId": 4,
+		"DataAtualizacao": "2015-09-25T02:15:24.327",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 40,
+		"Nome": "Torre 5",
+		"EmpresaId": 1,
+		"ObraId": 4,
+		"DataAtualizacao": "2015-09-25T02:15:24.467",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	{
+		"Id": 2,
+		"Nome": "Wind",
+		"EmpresaId": 1,
+		"ObraId": null,
+		"DataAtualizacao": "2015-09-25T02:15:15.64",
+		"Contratadas": [
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	}
+]
