@@ -9,9 +9,7 @@ export function TreeListDirective() {
             fullList: '=items',
             idsList: '=itemsIds',
             model: '=',
-            title: '@',
-            prop: '@',
-            childrenProp: '@'
+            title: '@'
         },
         compile: function (element, attrs) {
             const num = uiid;
@@ -46,13 +44,12 @@ export function TreeListDirective() {
                 
                 
                 <-- LVL 0 -->
-                <ion-list>
-                    <ion-item ng-if="TreeList.selecteds[0]"
-                        ng-hide="TreeList.isVisible(0)"
+                <ion-list ng-if="TreeList.items.length">
+                    <ion-item ng-hide="TreeList.isVisible(0)"
                         ng-click="TreeList.toggle(0)">
                         {{TreeList.selecteds[0][TreeList.prop]}}
                     </ion-item>
-                    <ion-radio ng-repeat="item in TreeList.children[0]"
+                    <ion-radio ng-repeat="item in TreeList.items"
                         ng-value="item"
                         ng-show="TreeList.isVisible(0)"
                         ng-selected="TreeList.isSelected(item)"
@@ -70,7 +67,7 @@ export function TreeListDirective() {
                         ng-click="TreeList.toggle(1)">
                         {{TreeList.selecteds[1][TreeList.prop]}}
                     </ion-item>
-                    <ion-radio ng-repeat="item in TreeList.children[1]"
+                    <ion-radio ng-repeat="item in TreeList.children[0]"
                         ng-value="item"
                         ng-show="TreeList.isVisible(1)"
                         ng-selected="TreeList.isSelected(item)"
@@ -88,7 +85,7 @@ export function TreeListDirective() {
                         ng-click="TreeList.toggle(2)">
                         {{TreeList.selecteds[2][TreeList.prop]}}
                     </ion-item>
-                    <ion-radio ng-repeat="item in TreeList.children[2]"
+                    <ion-radio ng-repeat="item in TreeList.children[1]"
                         ng-value="item"
                         ng-show="TreeList.isVisible(2)"
                         ng-selected="TreeList.isSelected(item)"
@@ -105,7 +102,7 @@ export function TreeListDirective() {
                         ng-click="TreeList.toggle(3)">
                         {{TreeList.selecteds[3][TreeList.prop]}}
                     </ion-item>
-                    <ion-radio ng-repeat="item in TreeList.children[3]"
+                    <ion-radio ng-repeat="item in TreeList.children[2]"
                         ng-value="item"
                         ng-show="TreeList.isVisible(3)"
                         ng-selected="TreeList.isSelected(item)"
@@ -128,14 +125,6 @@ export class TreeListController {
         this.selecteds = [];
         this.children = [];
         this.get = null;
-        debugger;
-        this.$scope.$watch(() => {
-            return this.ids.length ? parseInt(this.ids.join(''), 10) : 0;
-        }, (newValue, oldValue) => {
-            if (!!newValue && newValue !== oldValue) {
-                this.items = this.Session.repositorios[this.type].get(this.ids);
-            }
-        });
         if (!this.type) {
             this.type = "";
         }
@@ -148,6 +137,17 @@ export class TreeListController {
         if (!this.ids) {
             this.ids = [];
         }
+        this.watchers();
+    }
+    watchers() {
+        this.$scope.$watch(() => {
+            debugger;
+            return this.ids.length ? parseInt(this.ids.join(''), 10) : 0;
+        }, (newValue, oldValue) => {
+            if (!!newValue && newValue !== oldValue) {
+                this.items = this.Session.repositorios[this.type].get(this.ids);
+            }
+        });
     }
     toggle(level) {
         let allHidden = [false, false, false, false];
@@ -164,9 +164,7 @@ export class TreeListController {
         }
         this.model = (!item.children.length) ? item : null;
         this.selecteds.push(item);
-        this.get(item.children).then(arr => {
-            this.children.push(arr);
-        });
+        this.children.push(this.get(item.children));
     }
     isSelected(item) {
         return item === this.model;

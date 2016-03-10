@@ -9,6 +9,7 @@ declare class ConfigCtrl {
     obras: fatores.models.IObra[];
     selected: any;
     getObras: any;
+    selectables: any;
     constructor($scope: ng.IScope, $state: ng.ui.IStateService, Session: Session);
     init(): void;
 }

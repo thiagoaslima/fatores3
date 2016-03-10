@@ -7,8 +7,6 @@ export declare function TreeListDirective(): {
         idsList: string;
         model: string;
         title: string;
-        prop: string;
-        childrenProp: string;
     };
     compile: (element: any, attrs: any) => {
         pre: () => void;
@@ -32,6 +30,7 @@ export declare class TreeListController {
     private children;
     private get;
     constructor($scope: ng.IScope, Session: Session);
+    watchers(): void;
     toggle(level: any): void;
     isVisible(level: any): boolean;
     select(item: any, level: any): void;

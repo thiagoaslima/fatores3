@@ -38,16 +38,16 @@ angular.module('app.fatores', ['ionic', 'ngCordova']).service(_Toast2.default.II
 }]).config(_Routes.Router.instance).run(_Routes.RouteVerifier); /// <reference path="../typings/angularjs/angular.d.ts" />
 
 },{"./configuracao/ConfiguracaoController":2,"./core/Routes":4,"./directives/basicList":6,"./directives/treeList":7,"./login/LoginController":8,"./models/EntitiesManager":10,"./models/UserModel":12,"./session/Session":13,"./session/SessionInterceptor":14,"./storage/Storage":16,"./toaster/Toast":17}],2:[function(require,module,exports){
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.ConfigCtrl = undefined;
 
-var _Session = require('../session/Session');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Session = require("../session/Session");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -59,29 +59,92 @@ var ConfigCtrl = function () {
         this.$state = $state;
         this.Session = Session;
         this.obras = [];
-        var empresasId = Session.repositorios.obras.getAll(false).map(function (obra) {
-            return obra.EmpresaId;
-        }).filter(function (id, idx, arr) {
-            return arr.indexOf(id) === idx;
-        });
-        this.empresas = Session.repositorios.empresas.get(empresasId);
-        this.selected = Session.configuracao;
         this.getObras = Session.repositorios.obras.get;
+        this.selectables = {
+            empresas: [],
+            obras: [],
+            contratadas: [],
+            tarefas: []
+        };
+        this.selected = {};
+        var _selected = {
+            empresa: Session.configuracao.empresa || null,
+            obra: Session.configuracao.empresa || null,
+            contratada: Session.configuracao.contratada || null,
+            tarefa: Session.configuracao.tarefa || null
+        };
+        var controller = this;
+        Object.defineProperties(this.selected, {
+            "empresa": {
+                get: function get() {
+                    return _selected.empresa;
+                },
+                set: function set(value) {
+                    _selected.empresa = value || null;
+                    _selected.obra = null;
+                    _selected.contratada = null;
+                    _selected.tarefa = null;
+                    $scope.$applyAsync(function () {
+                        if (value === null) {
+                            controller.selectables.obras = [];
+                        }
+                        controller.selectables.contratadas = [];
+                        controller.selectables.tarefas = [];
+                    });
+                }
+            },
+            "obra": {
+                get: function get() {
+                    return _selected.obra;
+                },
+                set: function set(value) {
+                    _selected.obra = value || null;
+                    _selected.contratada = null;
+                    _selected.tarefa = null;
+                    $scope.$applyAsync(function () {
+                        if (value === null) {
+                            controller.selectables.contratadas = [];
+                        }
+                        controller.selectables.tarefas = [];
+                    });
+                }
+            },
+            "contratada": {
+                get: function get() {
+                    return _selected.contratada;
+                },
+                set: function set(value) {
+                    _selected.contratada = value || null;
+                    _selected.tarefa = null;
+                    $scope.$applyAsync(function () {
+                        if (value === null) {
+                            controller.selectables.tarefas = [];
+                        }
+                    });
+                }
+            },
+            "tarefa": {
+                get: function get() {
+                    return _selected.tarefa;
+                },
+                set: function set(value) {
+                    _selected.tarefa = value;
+                }
+            }
+        });
         this.init();
     }
 
     _createClass(ConfigCtrl, [{
-        key: 'init',
+        key: "init",
         value: function init() {
-            var _this = this;
-
-            this.$scope.$watch(function () {
-                return _this.selected.empresa;
-            }, function (newValue, oldValue) {
-                if (newValue !== oldValue) {
-                    _this.obras = _this.Session.repositorios.obras.get(_this.selected.empresa.Obras);
-                }
+            window.config = this;
+            var empresasId = this.Session.repositorios.obras.getAll(false).map(function (obra) {
+                return obra.EmpresaId;
+            }).filter(function (id, idx, arr) {
+                return arr.indexOf(id) === idx;
             });
+            this.empresas = this.Session.repositorios.empresas.get(empresasId);
         }
     }]);
 
@@ -98,17 +161,19 @@ exports.ConfigCtrl = ConfigCtrl;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "\n<ion-view title=\"Configuração\">\n    <ion-nav-buttons side=\"right\">\n        <button class=\"icon button button-balanced ion-checkmark\" \n            ng-show=\"ConfigCtrl.selected.tarefa\"\n            ng-click=\"ConfigCtrl.save($event)\"></button>\n    </ion-nav-buttons>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n        \n        <!-- Empresas -->\n        <basic-list items=\"ConfigCtrl.empresas\" title=\"Empresa\" prop=\"RazaoSocial\"></basic-list>\n        \n        <!-- Obras -->\n        <tree-list repo=\"ConfigCtrl.getObras\" items=\"ConfigCtrl.obras\" title=\"Obra\" prop=\"Nome\"></basic-list>\n        \n    </ion-content>\n</ion-view>\n";
+exports.default = "\n<ion-view title=\"Configuração\">\n    <ion-nav-buttons side=\"right\">\n        <button class=\"icon button button-balanced ion-checkmark\" \n            ng-show=\"ConfigCtrl.selected.tarefa\"\n            ng-click=\"ConfigCtrl.save($event)\"></button>\n    </ion-nav-buttons>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n        \n        <!-- Empresas -->\n        <basic-list title=\"Empresas\" \n                    prop=\"RazaoSocial\"\n                    items=\"ConfigCtrl.empresas\"  \n                    model=\"ConfigCtrl.selected.empresa\">\n        </basic-list>\n        \n        <!-- Obras -->\n        <tree-list  title=\"Obras\"\n                    repo=\"ConfigCtrl.getObras\" \n                    model=\"ConfigCtrl.selected.obra\"\n                    items=\"ConfigCtrl.obras\"\n                    items-ids=\"ConfigCtrl.selected.empresa.Obras\">\n        </tree-list>\n        \n    </ion-content>\n</ion-view>\n";
 
 },{}],4:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/angular-ui-router/angular-ui-router.d.ts" />
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.Router = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/angular-ui-router/angular-ui-router.d.ts" />
+
+
 exports.RouteVerifier = RouteVerifier;
 
 var _login = require('../login/login.template');
@@ -426,12 +491,13 @@ var app = exports.app = {
 },{}],6:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.BasicListController = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 exports.BasicListDirective = BasicListDirective;
 
 var _Session = require('../session/Session');
@@ -465,7 +531,7 @@ function BasicListDirective() {
         },
         controller: BasicListController,
         controllerAs: 'BasicList',
-        template: '\n        <ion-list class="padding-top">\n            \n            <ion-item>\n                <h4 ng-click="BasicList.toggle()" class="item item-divider">\n                    {{::BasicList.title}}\n                </h4>\n                <div ng-hide="BasicList.isVisible()">\n                    <ion-item ng-click="BasicList.toggle()" ng-if="BasicList.model">{{BasicList.model[BasicList.prop]}}</ion-item>\n                    <ion-item ng-click="BasicList.toggle()" ng-if="!BasicList.model">Clique para selecionar um item</ion-item>\n                </div>\n                <ion-list ng-show="BasicList.isVisible()">\n                    <ion-radio ng-repeat="item in BasicList.items"\n                        ng-value="item"\n                        ng-selected="BasicList.isSelected(item)"\n                        ng-click="BasicList.select(item)">\n                            {{::item[BasicList.prop]}}\n                    </ion-radio>\n                </ion-list>\n            </ion-item>\n       </ion-list>\n        '
+        template: '\n        <ion-list class="padding-top">\n            \n            <ion-item>\n                <h4 ng-click="BasicList.toggle()" class="item item-divider">\n                    {{::BasicList.title}}\n                </h4>\n                <div style="font-style:italic" ng-hide="BasicList.isVisible()">\n                    <ion-item ng-click="BasicList.toggle()" ng-if="BasicList.model">{{BasicList.model[BasicList.prop]}}</ion-item>\n                    <ion-item ng-click="BasicList.toggle()" ng-if="!BasicList.model">Clique para selecionar um item</ion-item>\n                </div>\n                <ion-list ng-show="BasicList.isVisible()">\n                    <ion-radio ng-repeat="item in BasicList.items"\n                        ng-value="item"\n                        ng-selected="BasicList.isSelected(item)"\n                        ng-click="BasicList.select(item)">\n                            {{::item[BasicList.prop]}}\n                    </ion-radio>\n                </ion-list>\n            </ion-item>\n       </ion-list>\n        '
     };
 }
 
@@ -531,12 +597,14 @@ BasicListController.$inject = ['$scope', _Session.Session.IID];
 },{"../session/Session":13}],7:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals angular:true */
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.TreeListController = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals angular:true */
+
+
 exports.TreeListDirective = TreeListDirective;
 
 var _Session = require('../session/Session');
@@ -552,9 +620,7 @@ function TreeListDirective() {
             fullList: '=items',
             idsList: '=itemsIds',
             model: '=',
-            title: '@',
-            prop: '@',
-            childrenProp: '@'
+            title: '@'
         },
         compile: function compile(element, attrs) {
             var num = uiid;
@@ -576,14 +642,12 @@ function TreeListDirective() {
         },
         controller: ['$scope', '$element', TreeListController],
         controllerAs: 'TreeList',
-        template: '\n         <ion-list class="padding-top">\n            \n            <ion-item>\n                <h4 class="item item-divider">\n                    {{::TreeList.title}}\n                </h4>\n                <div>\n                    <ion-item ng-if="!TreeList.model">Clique para selecionar um item</ion-item>\n                </div>\n                \n                \n                <-- LVL 0 -->\n                <ion-list>\n                    <ion-item ng-if="TreeList.selecteds[0]"\n                        ng-hide="TreeList.isVisible(0)"\n                        ng-click="TreeList.toggle(0)">\n                        {{TreeList.selecteds[0][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.children[0]"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(0)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 0)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n                \n                <-- LVL 1 -->\n                <ion-list ng-if="TreeList.selecteds[1] === item">\n                    <ion-item ng-if="TreeList.selecteds[1]"\n                        ng-hide="TreeList.isVisible(1)"\n                        ng-click="TreeList.toggle(1)">\n                        {{TreeList.selecteds[1][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.children[1]"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(1)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 1)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n                \n                <-- LVL 2 -->\n                <ion-list ng-if="TreeList.selecteds[2] === item">\n                    <ion-item ng-if="TreeList.selecteds[2]"\n                        ng-hide="TreeList.isVisible(2)"\n                        ng-click="TreeList.toggle(2)">\n                        {{TreeList.selecteds[2][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.children[2]"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(2)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 2)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n                <-- LVL 3 -->\n                <ion-list ng-if="TreeList.selecteds[3] === item">\n                    <ion-item ng-if="TreeList.selecteds[3]"\n                        ng-hide="TreeList.isVisible(3)"\n                        ng-click="TreeList.toggle(3)">\n                        {{TreeList.selecteds[3][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.children[3]"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(3)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 3)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n            </ion-item>\n       </ion-list>\n        '
+        template: '\n         <ion-list class="padding-top">\n            \n            <ion-item>\n                <h4 class="item item-divider">\n                    {{::TreeList.title}}\n                </h4>\n                <div>\n                    <ion-item ng-if="!TreeList.model">Clique para selecionar um item</ion-item>\n                </div>\n                \n                \n                <-- LVL 0 -->\n                <ion-list ng-if="TreeList.items.length">\n                    <ion-item ng-hide="TreeList.isVisible(0)"\n                        ng-click="TreeList.toggle(0)">\n                        {{TreeList.selecteds[0][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.items"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(0)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 0)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n                \n                <-- LVL 1 -->\n                <ion-list ng-if="TreeList.selecteds[1] === item">\n                    <ion-item ng-if="TreeList.selecteds[1]"\n                        ng-hide="TreeList.isVisible(1)"\n                        ng-click="TreeList.toggle(1)">\n                        {{TreeList.selecteds[1][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.children[0]"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(1)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 1)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n                \n                <-- LVL 2 -->\n                <ion-list ng-if="TreeList.selecteds[2] === item">\n                    <ion-item ng-if="TreeList.selecteds[2]"\n                        ng-hide="TreeList.isVisible(2)"\n                        ng-click="TreeList.toggle(2)">\n                        {{TreeList.selecteds[2][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.children[1]"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(2)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 2)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n                <-- LVL 3 -->\n                <ion-list ng-if="TreeList.selecteds[3] === item">\n                    <ion-item ng-if="TreeList.selecteds[3]"\n                        ng-hide="TreeList.isVisible(3)"\n                        ng-click="TreeList.toggle(3)">\n                        {{TreeList.selecteds[3][TreeList.prop]}}\n                    </ion-item>\n                    <ion-radio ng-repeat="item in TreeList.children[2]"\n                        ng-value="item"\n                        ng-show="TreeList.isVisible(3)"\n                        ng-selected="TreeList.isSelected(item)"\n                        ng-click="TreeList.select(item, 3)">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                </ion-list>\n                \n                \n            </ion-item>\n       </ion-list>\n        '
     };
 }
 
 var TreeListController = exports.TreeListController = function () {
     function TreeListController($scope, Session) {
-        var _this = this;
-
         _classCallCheck(this, TreeListController);
 
         this.$scope = $scope;
@@ -592,14 +656,6 @@ var TreeListController = exports.TreeListController = function () {
         this.selecteds = [];
         this.children = [];
         this.get = null;
-        debugger;
-        this.$scope.$watch(function () {
-            return _this.ids.length ? parseInt(_this.ids.join(''), 10) : 0;
-        }, function (newValue, oldValue) {
-            if (!!newValue && newValue !== oldValue) {
-                _this.items = _this.Session.repositorios[_this.type].get(_this.ids);
-            }
-        });
         if (!this.type) {
             this.type = "";
         }
@@ -612,9 +668,24 @@ var TreeListController = exports.TreeListController = function () {
         if (!this.ids) {
             this.ids = [];
         }
+        this.watchers();
     }
 
     _createClass(TreeListController, [{
+        key: 'watchers',
+        value: function watchers() {
+            var _this = this;
+
+            this.$scope.$watch(function () {
+                debugger;
+                return _this.ids.length ? parseInt(_this.ids.join(''), 10) : 0;
+            }, function (newValue, oldValue) {
+                if (!!newValue && newValue !== oldValue) {
+                    _this.items = _this.Session.repositorios[_this.type].get(_this.ids);
+                }
+            });
+        }
+    }, {
         key: 'toggle',
         value: function toggle(level) {
             var allHidden = [false, false, false, false];
@@ -629,17 +700,13 @@ var TreeListController = exports.TreeListController = function () {
     }, {
         key: 'select',
         value: function select(item, level) {
-            var _this2 = this;
-
             if (this.selecteds.length > level) {
                 this.selecteds.length = level;
                 this.children.length = level;
             }
             this.model = !item.children.length ? item : null;
             this.selecteds.push(item);
-            this.get(item.children).then(function (arr) {
-                _this2.children.push(arr);
-            });
+            this.children.push(this.get(item.children));
         }
     }, {
         key: 'isSelected',
@@ -657,12 +724,12 @@ TreeListController.$inject = ['$scope', _Session.Session.IID];
 },{"../session/Session":13}],8:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.LoginCtrl = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _Toast = require('../toaster/Toast');
 
@@ -734,12 +801,13 @@ exports.default = "\n<ion-view title=\"Login\">\n    <ion-content overflow-scrol
 },{}],10:[function(require,module,exports){
 "use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/fatores/models.d.ts" />
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.TarefaLoader = exports.ObraLoader = exports.FuncaoLoader = exports.EmpresaLoader = exports.CenarioValorLoader = exports.CenarioLoader = exports.AtividadeTarefaLoader = exports.AtividadeLoader = exports.TreeLoader = exports.BasicLoader = exports.EntitiesLoader = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/fatores/models.d.ts" />
+
 
 var _settings = require("../core/settings");
 
@@ -1045,12 +1113,13 @@ TarefaLoader.$inject = ['$http', _Storage2.default.IID];
 },{"../core/settings":5,"../storage/Storage":16,"../utils/dates":19,"./Repositories":11}],11:[function(require,module,exports){
 "use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/fatores/models.d.ts" />
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.TreeRepository = exports.Repository = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/fatores/models.d.ts" />
+
 
 var _objects = require("../utils/objects");
 
@@ -1204,12 +1273,12 @@ var TreeRepository = exports.TreeRepository = function (_Repository) {
 },{"../utils/arrays":18,"../utils/objects":21}],12:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.UserRepository = exports.UserEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1350,12 +1419,12 @@ UserRepository.$inject = ['$q', '$http', '$window', _Storage2.default.IID];
 },{"../core/settings":5,"../storage/Storage":16,"../utils/objects":21}],13:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.Session = exports.SessionRepository = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dates = require('../utils/dates');
 
@@ -1496,11 +1565,12 @@ exports.default = "\n<ion-side-menus>\n    \n    <ion-side-menu-content>\n      
 },{}],16:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/lz-string/lz-string.d.ts" />
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/lz-string/lz-string.d.ts" />
+
 
 var _settings = require('../core/settings');
 
@@ -1572,11 +1642,11 @@ Storage.$inject = ['$window'];
 },{"../core/settings":5}],17:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

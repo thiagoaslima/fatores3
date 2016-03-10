@@ -33,7 +33,7 @@ export function BasicListDirective() {
                 <h4 ng-click="BasicList.toggle()" class="item item-divider">
                     {{::BasicList.title}}
                 </h4>
-                <div ng-hide="BasicList.isVisible()">
+                <div style="font-style:italic" ng-hide="BasicList.isVisible()">
                     <ion-item ng-click="BasicList.toggle()" ng-if="BasicList.model">{{BasicList.model[BasicList.prop]}}</ion-item>
                     <ion-item ng-click="BasicList.toggle()" ng-if="!BasicList.model">Clique para selecionar um item</ion-item>
                 </div>

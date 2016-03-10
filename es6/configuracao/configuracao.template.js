@@ -9,10 +9,19 @@ export default `
     <ion-content overflow-scroll="true" padding="'true'" class="has-header">
         
         <!-- Empresas -->
-        <basic-list items="ConfigCtrl.empresas" title="Empresa" prop="RazaoSocial"></basic-list>
+        <basic-list title="Empresas" 
+                    prop="RazaoSocial"
+                    items="ConfigCtrl.empresas"  
+                    model="ConfigCtrl.selected.empresa">
+        </basic-list>
         
         <!-- Obras -->
-        <tree-list repo="ConfigCtrl.getObras" items="ConfigCtrl.obras" title="Obra" prop="Nome"></basic-list>
+        <tree-list  title="Obras"
+                    repo="ConfigCtrl.getObras" 
+                    model="ConfigCtrl.selected.obra"
+                    items="ConfigCtrl.obras"
+                    items-ids="ConfigCtrl.selected.empresa.Obras">
+        </tree-list>
         
     </ion-content>
 </ion-view>
